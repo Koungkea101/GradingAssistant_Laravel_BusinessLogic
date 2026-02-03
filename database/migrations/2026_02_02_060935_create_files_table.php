@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('organization_id')->constrained()->cascadeOnDelete();
             $table->foreignId('uploaded_by')->constrained('users');
-            
+
             $table->morphs('fileable'); // Polymorphic relation
             $table->string('filename');
             $table->string('original_filename');
@@ -28,7 +28,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['fileable_type', 'fileable_id']);
             $table->index(['organization_id', 'type']);
         });
     }
