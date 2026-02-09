@@ -40,9 +40,13 @@ class DepartmentsFactory extends Factory
         ];
 
         $name = fake()->randomElement($departments);
-        
+
         return [
-            'organization_id' => Organizations::factory(),
+            'organization_id' => function() {
+                return Organizations::count() > 0
+                    ? Organizations::inRandomOrder()->first()->id
+                    : Organizations::factory()->create()->id;
+            },
             'name' => $name,
             'code' => strtoupper(Str::substr(str_replace(' ', '', $name), 0, 3)) . fake()->unique()->numberBetween(100, 999),
             'description' => fake()->optional(0.7)->sentence(12),

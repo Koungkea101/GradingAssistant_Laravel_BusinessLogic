@@ -50,6 +50,9 @@ COPY . .
 # Run composer scripts after copying all files
 RUN composer dump-autoload --optimize
 
+# Make artisan executable
+RUN chmod +x artisan
+
 # Generate app key (Laravel requirement)
 RUN php artisan key:generate --show > /tmp/key.txt || echo "base64:$(openssl rand -base64 32)" > /tmp/key.txt
 

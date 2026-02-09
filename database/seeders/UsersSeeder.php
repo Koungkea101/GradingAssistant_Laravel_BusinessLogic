@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organizations;
+use App\Models\Users;
+use Illuminate\Support\Str;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +27,7 @@ class UsersSeeder extends Seeder
                 'password' => bcrypt('password'), // password
                 'phone' => '+1-555-123-4567',
                 'role' => 'admin',
-                'organization_id' => Organizations::factory(),
+                'organization_id' => Organizations::factory()->create()->id,
                 'is_active' => true,
                 'remember_token' => Str::random(10),
             ]

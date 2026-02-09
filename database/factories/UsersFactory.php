@@ -17,6 +17,8 @@ class UsersFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Users::class;
+
     public function definition(): array
     {
         return [
@@ -25,8 +27,12 @@ class UsersFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // password
             'phone' => fake()->phoneNumber(),
-            'role' => fake()->randomElement(['admin', 'user', 'manager']),
-            'organization_id' => Organizations::factory(),
+            'role' => fake()->randomElement(['admin', 'teacher', 'student']),
+            'organization_id' => function() {
+                return Organizations::count() > 0
+                    ? Organizations::inRandomOrder()->first()->id
+                    : Organizations::factory()->create()->id;
+            },
             'is_active' => fake()->boolean(),
             'remember_token' => Str::random(10),
         ];
