@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class GradingResults extends Model
 {
-    use HashFactory, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
      * The table associated with the model.

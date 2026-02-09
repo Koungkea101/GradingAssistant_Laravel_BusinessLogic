@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,16 +16,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Run organization seeder first
+        // Seed in dependency order
         $this->call([
-            organizationSeeder::class,
+            // Core entities first
+            OrganizationsSeeder::class,
+            DepartmentsSeeder::class,
+            UsersSeeder::class,
+            TeachersSeeder::class,
+            StudentsSeeder::class,
+            ClassesSeeder::class,
+            CoursesSeeder::class,
+            AssignmentsSeeder::class,
+
+            // Pivot tables last (depend on core entities)
+            ClassStudentSeeder::class,
+            ClassTeacherSeeder::class,
         ]);
 
-        // User::factory(10)->create();
-
-        User::factory()->create([
+        // Create test admin user
+        Users::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => 'admin',
         ]);
     }
 }
