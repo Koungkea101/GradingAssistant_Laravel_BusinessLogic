@@ -14,7 +14,7 @@ class Users extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'user_id',
+        'organization_id',
         'name',
         'email',
         'password',
@@ -28,7 +28,7 @@ class Users extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'user_id' => 'integer',
+        'organization_id' => 'integer',
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
